@@ -31,6 +31,23 @@
 
     <!-- Hauptinhalt der Seite -->
     <main>
+      <!-- Versuche-Anzeige mit Titel und 10 Kreisen -->
+      <div class="attempts-container">
+        <span class="attempts-title">Versuche</span>
+        <div class="attempts-circles">
+          <div class="attempt-circle"></div>
+          <div class="attempt-circle"></div>
+          <div class="attempt-circle"></div>
+          <div class="attempt-circle"></div>
+          <div class="attempt-circle"></div>
+          <div class="attempt-circle"></div>
+          <div class="attempt-circle"></div>
+          <div class="attempt-circle"></div>
+          <div class="attempt-circle"></div>
+          <div class="attempt-circle"></div>
+        </div>
+      </div>
+
       <!-- Suchbereich zum Suchen eines Spielers -->
       <div class="search-container">
         <!-- Wrapper für Input und Dropdown -->
@@ -54,12 +71,26 @@
           </svg>
         </button>
       </div>
+
+      <!-- Tabelle mit den bisherigen Guess-Versuchen -->
+      <div class="guess-table">
+        <!-- Kopfzeile der Tabelle -->
+        <div class="guess-header">
+          <span>SPIELER</span>
+          <span>NATION</span>
+          <span>VEREIN</span>
+          <span>ALTER</span>
+          <span>POS.</span>
+          <span>LIGA</span>
+        </div>
+
+        <!-- Guess-Zeilen werden per JS hier eingefügt -->
+        <div class="guess-rows"></div>
+      </div>
     </main>
 
     <!-- Fusszeile -->
-    <footer>
-      <p>This is the footer of the page.</p>
-    </footer>
+    <footer></footer>
 
     <!-- JavaScript einbinden -->
     <script src="js/script.js" type="module"></script>

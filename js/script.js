@@ -1,36 +1,46 @@
 // DOM-Elemente laden
 const searchInput = document.querySelector('.search-input');
 const searchDropdown = document.querySelector('.search-dropdown');
+const guessButton = document.querySelector('.search-button');
+const guessRows = document.querySelector('.guess-rows');
 
-console.log('searchInput gefunden:', searchInput);
-console.log('searchDropdown gefunden:', searchDropdown);
+// Speichert den aktuell ausgewählten Spieler aus dem Dropdown
+let selectedPlayer = null;
 
-// Sucht Spieler anhand des eingegebenen Namens via TheSportsDB
-async function searchPlayers(name) {
-    const url = `https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${name}`;
-    console.log('API wird aufgerufen:', url);
+// Speichert die IDs der bereits geratenen Spieler
+let guessedIds = [];
+
+// Alle Premier League Spieler einmal beim Start laden
+async function loadPlayers() {
     try {
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log('API Antwort:', data);
-        return data;
+        const response = await fetch('https://im2.severinfischer.ch/api/players.php');
+        return await response.json();
     } catch (error) {
-        console.error('API Fehler:', error);
+        console.error(error);
         return false;
     }
 }
 
-// Zeigt die Spielervorschläge im Dropdown an
+// Zeigt gefilterte Spieler als klickbare Einträge im Dropdown an
 function showDropdown(players) {
     searchDropdown.innerHTML = '';
 
     players.forEach(function(player) {
-        const item = `<div class="dropdown-item">${player.strPlayer} – ${player.strTeam}</div>`;
-        searchDropdown.innerHTML += item;
+        const item = document.createElement('div');
+        item.classList.add('dropdown-item');
+        item.innerText = `${player.name} – ${player.team}`;
+
+        // Spieler aus Dropdown auswählen
+        item.addEventListener('click', function() {
+            selectedPlayer = player;
+            searchInput.value = player.name;
+            hideDropdown();
+        });
+
+        searchDropdown.appendChild(item);
     });
 
     searchDropdown.style.display = 'block';
-    console.log('Dropdown wird angezeigt mit', players.length, 'Spielern');
 }
 
 // Versteckt das Dropdown
@@ -39,28 +49,82 @@ function hideDropdown() {
     searchDropdown.style.display = 'none';
 }
 
-// Hört auf Eingaben im Suchfeld und zeigt passende Spieler an
-searchInput.addEventListener('input', async function(event) {
-    const value = event.target.value;
-    console.log('Eingabe:', value);
+// Vergleicht den geratenen Spieler mit dem Ziel-Spieler und fügt eine Zeile in die Tabelle ein
+function addGuessRow(guessed, target) {
+    const nationCorrect = guessed.nationality === target.nationality;
+    const teamCorrect = guessed.team === target.team;
+    const ageCorrect = guessed.dateOfBirth === target.dateOfBirth;
+    const positionCorrect = guessed.position === target.position;
+
+    const row = `
+        <div class="guess-row">
+            <span class="guess-player-name">${guessed.name}</span>
+            <span class="guess-badge ${nationCorrect ? 'correct' : 'wrong'}">${guessed.nationality}</span>
+            <span class="guess-badge ${teamCorrect ? 'correct' : 'wrong'}">${guessed.team}</span>
+            <span class="guess-badge ${ageCorrect ? 'correct' : 'wrong'}">${guessed.dateOfBirth}</span>
+            <span class="guess-badge ${positionCorrect ? 'correct' : 'wrong'}">${guessed.position || '–'}</span>
+            <span class="guess-badge correct">PL</span>
+        </div>
+    `;
+
+    guessRows.innerHTML += row;
+}
+
+// Alle Spieler laden und einen zufälligen Ziel-Spieler auswählen
+const allPlayers = await loadPlayers();
+const randomIndex = Math.floor(Math.random() * allPlayers.length);
+const targetPlayer = allPlayers[randomIndex];
+console.log('Ziel-Spieler (nur zum Testen):', targetPlayer.name);
+
+// Hört auf Eingaben und filtert die Spielerliste lokal
+searchInput.addEventListener('input', function(event) {
+    const value = event.target.value.toLowerCase();
 
     if (value.length < 2) {
         hideDropdown();
         return;
     }
 
-    const data = await searchPlayers(value);
+    const filteredPlayers = allPlayers.filter(function(player) {
+        return player.name.toLowerCase().includes(value);
+    }).slice(0, 6);
 
-    if (data && data.player) {
-        const soccerPlayers = data.player.filter(function(player) {
-            return player.strSport === 'Soccer';
-        });
-        console.log('Soccer Spieler gefunden:', soccerPlayers.length);
-        showDropdown(soccerPlayers);
+    if (filteredPlayers.length > 0) {
+        showDropdown(filteredPlayers);
     } else {
-        console.log('Keine Spieler gefunden');
         hideDropdown();
     }
+});
+
+// Färbt den nächsten Kreis grün oder rot ein
+function updateCircle(isCorrect) {
+    const circles = document.querySelectorAll('.attempt-circle');
+    const index = guessedIds.length - 1;
+    console.log('Kreis wird gefärbt:', index, isCorrect);
+    if (!circles[index]) return;
+    circles[index].classList.add(isCorrect ? 'correct' : 'wrong');
+}
+
+// Guess-Button: vergleicht den ausgewählten Spieler mit dem Ziel-Spieler
+guessButton.addEventListener('click', function() {
+    if (!selectedPlayer) return;
+
+    // Verhindert denselben Spieler zweimal zu raten
+    if (guessedIds.includes(selectedPlayer.id)) return;
+
+    const isCorrect = selectedPlayer.id === targetPlayer.id;
+
+    guessedIds.push(selectedPlayer.id);
+    addGuessRow(selectedPlayer, targetPlayer);
+    updateCircle(isCorrect);
+
+    // Prüft ob der richtige Spieler erraten wurde
+    if (isCorrect) {
+        console.log('Gewonnen! Der Spieler war:', targetPlayer.name);
+    }
+
+    searchInput.value = '';
+    selectedPlayer = null;
 });
 
 // Schliesst das Dropdown wenn ausserhalb geklickt wird
@@ -69,21 +133,3 @@ document.addEventListener('click', function(event) {
         hideDropdown();
     }
 });
-
-
-async function allPlayers() {
-    const url = `https://im2.severinfischer.ch/api/players.php`;
-    console.log('Alle Spieler werden geladen:', url);
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log('Alle Spieler geladen:', data);
-        return data;
-    } catch (error) {
-        console.error('Fehler beim Laden aller Spieler:', error);
-        return false;
-    }
-}
-
-// zeige alle spieler in der konsole
-allPlayers();

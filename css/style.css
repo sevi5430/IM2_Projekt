@@ -48,6 +48,55 @@ h1 {
     margin-top: 15px;
 }
 
+/* Versuche-Bereich über der Searchbar */
+.attempts-container {
+    width: 60%;
+    margin: 0 auto;
+    padding: 0 60px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Titel "Versuche" */
+.attempts-title {
+    display: block;
+    color: #00FF85;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+/* Reihe mit den 10 Kreisen */
+.attempts-circles {
+    display: flex;
+    gap: 10px;
+}
+
+/* Einzelner Kreis - neutral */
+.attempt-circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    background-color: rgba(0, 0, 0, 0.22);
+}
+
+/* Kreis grün - richtiger Spieler erraten */
+.attempt-circle.correct {
+    border: 2px solid #00FF85;
+    background-color: rgba(0, 255, 133, 0.23);
+}
+
+/* Kreis rot - falscher Spieler */
+.attempt-circle.wrong {
+    border: 2px solid #FF0004;
+    background-color: rgba(255, 0, 4, 0.23);
+}
+
 /* Suchleiste mit Input und Button nebeneinander */
 .search-container {
     display: flex;
@@ -139,6 +188,82 @@ h1 {
     font-weight: 600;
     font-size: 20px;
     cursor: pointer;
+}
+
+/* Tabelle gleich breit wie die Searchbar, zentriert */
+.guess-table {
+    width: 60%;
+    margin: 0 auto;
+    padding: 0 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Kopfzeile mit den Spaltentiteln */
+.guess-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: 15px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.22);
+    color: #00FF85;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Container für alle Guess-Zeilen */
+.guess-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Einzelne Guess-Zeile mit Spielername und Badges */
+.guess-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: 15px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.22);
+    gap: 10px;
+}
+
+/* Spielername links in der Zeile */
+.guess-player-name {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* Basis-Style für alle Info-Badges */
+.guess-badge {
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Grüner Badge - Attribut stimmt überein */
+.guess-badge.correct {
+    border: 2px solid #00FF85;
+    background-color: rgba(0, 255, 133, 0.23);
+    color: #00FF85;
+}
+
+/* Roter Badge - Attribut stimmt nicht überein */
+.guess-badge.wrong {
+    border: 2px solid #FF0004;
+    background-color: rgba(255, 0, 4, 0.23);
+    color: #F7AFAF;
 }
 
 /* gestalte alle boxen mit der class round-box und zwar sollten es rechteckige boxen werden mit runden ecken der stroke soll die farbe #00FF85 */
