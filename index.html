@@ -3,11 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cocktail API</title>
+    <title>Who am I?</title>
+
     <!-- CSS einbinden -->
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <!-- Navigationsbar mit Logo oben links -->
+    <nav>
+      <img src="assets/prem-league-logo.svg" alt="Premier League Logo" />
+    </nav>
+
     <!-- Header mit Titel und Info-Boxen -->
     <header>
       <h1>Who am I?</h1>
@@ -25,8 +31,29 @@
 
     <!-- Hauptinhalt der Seite -->
     <main>
-      <h2>Main Content</h2>
-      <p>This is the main content of the page.</p>
+      <!-- Suchbereich zum Suchen eines Spielers -->
+      <div class="search-container">
+        <!-- Wrapper für Input und Dropdown -->
+        <div class="search-wrapper">
+          <input
+            class="search-input"
+            type="text"
+            placeholder="Hier Spielername eingeben"
+          />
+          <!-- Dropdown mit Spielervorschlägen -->
+          <div class="search-dropdown"></div>
+        </div>
+        <button class="search-button">
+          Guess
+          <svg
+            class="search-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 10 10"
+          >
+            <polygon class="search-icon-polygon" points="2,1 9,5 2,9" />
+          </svg>
+        </button>
+      </div>
     </main>
 
     <!-- Fusszeile -->
