@@ -134,24 +134,54 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// Modal-Elemente
+// ...existing code...
+
+// --- Anleitung-Modal: Listener sofort registrieren (macht Modal unabhängig von anderen Fehlern) ---
 const instructionButton = document.querySelector('.instruction-button');
 const instructionModal = document.getElementById('instructionModal');
 const closeModal = document.getElementById('closeModal');
 
-// Modal öffnen
-instructionButton.addEventListener('click', function() {
-    instructionModal.classList.add('active');
-});
-
-// Modal schließen (Close-Button)
-closeModal.addEventListener('click', function() {
+if (instructionModal) {
     instructionModal.classList.remove('active');
-});
+    instructionModal.setAttribute('aria-hidden', 'true');
+}
 
-// Modal schließen (Klick außerhalb)
-instructionModal.addEventListener('click', function(event) {
-    if (event.target === instructionModal) {
+if (instructionButton && instructionModal) {
+    instructionButton.addEventListener('click', () => {
+        instructionModal.classList.add('active');
+        instructionModal.setAttribute('aria-hidden', 'false');
+    });
+}
+
+if (closeModal && instructionModal) {
+    closeModal.addEventListener('click', () => {
         instructionModal.classList.remove('active');
+        instructionModal.setAttribute('aria-hidden', 'true');
+    });
+}
+
+if (instructionModal) {
+    instructionModal.addEventListener('click', (e) => {
+        if (e.target === instructionModal) {
+            instructionModal.classList.remove('active');
+            instructionModal.setAttribute('aria-hidden', 'true');
+        }
+    });
+}
+
+// --- Sichere App-Initialisierung: fetch/Errors blockieren nicht mehr die Modal-Listener ---
+async function initApp() {
+    try {
+        // ...existing code that lädt Spieler und initialisiert UI...
+        // Beispielersatz für vorhandenes top-level await:
+        // const allPlayers = await loadPlayers();
+        // const randomIndex = Math.floor(Math.random() * allPlayers.length);
+        // const targetPlayer = allPlayers[randomIndex];
+        // console.log('Ziel-Spieler (nur zum Testen):', targetPlayer?.name);
+    } catch (err) {
+        console.error('Initialisierung fehlgeschlagen:', err);
     }
-});
+}
+initApp();
+
+// ...existing code...
