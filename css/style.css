@@ -384,3 +384,76 @@ h1 {
 .modal-close:focus {
     outline: none;
 }
+
+/* Ergebnis-Karte (Win / Lose) */
+.result-card {
+    width: 100%;
+    border-radius: 14px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 18px 0;
+    border: 2px solid rgba(0,0,0,0.25);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    color: #16032E;
+}
+
+.result-card .result-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Win: goldener Verlauf */
+.result-card.win {
+    background: linear-gradient(135deg, #FFD966 0%, #F5B642 40%, #EAAA00 100%);
+    border-color: rgba(22,3,46,0.25);
+}
+
+/* Lose: roter Verlauf */
+.result-card.lose {
+    background: linear-gradient(135deg, #FF6464 0%, #E03A2D 50%, #C71A00 100%);
+    border-color: rgba(22,3,46,0.3);
+    color: #fff;
+}
+
+/* Überschrift / Text */
+.result-card .result-inner h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 34px;
+    margin: 0;
+}
+
+.result-card .result-inner p {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    margin: 0;
+}
+
+/* Restart-Button in der Karte */
+.result-restart {
+    align-self: flex-start;
+    margin-top: 6px;
+    border: 2px solid rgba(22,3,46,0.7);
+    border-radius: 12px;
+    padding: 10px 18px;
+    background-color: transparent;
+    color: inherit;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+
+/* Restart Hover (macht deutlich klickbar) */
+.result-restart:hover {
+    background-color: rgba(255,255,255,0.12);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.25) inset;
+}
+
+/* Mobile / kleinere Breiten */
+@media (max-width: 700px) {
+    .result-card .result-inner h2 { font-size: 26px; }
+    .result-card .result-inner p { font-size: 16px; }
+    .result-restart { padding: 8px 14px; }
+}

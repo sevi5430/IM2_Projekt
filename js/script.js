@@ -185,3 +185,84 @@ async function initApp() {
 initApp();
 
 // ...existing code...
+
+// Ersetze / ergänze die bestehende Guess-Logik durch folgenden Listener + Hilfsfunktionen
+// (stellt sicher: bei Win / nach 10 Versuchen wird Raten deaktiviert und nur "Neustart" möglich)
+
+function disableGuessing() {
+    if (guessButton) guessButton.disabled = true;
+    if (searchInput) {
+        searchInput.disabled = true;
+        searchInput.classList.add('disabled');
+    }
+    if (searchDropdown) searchDropdown.style.display = 'none';
+}
+
+function showResultCard(win, attempts, targetName) {
+    // falls schon ein Result-Card vorhanden ist, entferne sie
+    const existing = document.querySelector('.result-card');
+    if (existing) existing.remove();
+
+    const card = document.createElement('div');
+    card.className = 'result-card ' + (win ? 'win' : 'lose');
+    card.innerHTML = `
+      <div class="result-inner">
+        <h2>${win ? 'Bravo!' : 'Schade!'}</h2>
+        <p>${win
+          ? `Du hast ${targetName} im ${attempts}. Versuch erraten.`
+          : `Du hast ${targetName} in ${attempts} Versuchen leider nicht erraten.`}</p>
+        <button class="result-restart">${win ? 'Neuen Spieler erraten' : 'Neuen Spieler erraten'}</button>
+      </div>
+    `;
+    // füge die Karte oberhalb der Guess-Zeilen ein (oder ans Ende der Tabelle)
+    const guessTable = document.querySelector('.guess-table');
+    if (guessTable) guessTable.insertBefore(card, guessTable.querySelector('.guess-rows'));
+
+    // Restart -> Reload (sicher und einfach)
+    const rb = card.querySelector('.result-restart');
+    rb.addEventListener('click', () => {
+        location.reload();
+    });
+}
+
+guessButton.addEventListener('click', function handleGuessClick(e) {
+    // Sicherheitschecks (falls Variablen fehlen)
+    if (!selectedPlayer) return;
+    if (guessedIds.includes(selectedPlayer.id)) return;
+    if (!Array.isArray(guessedIds)) guessedIds = [];
+
+    // push guessed id und berechne Versuchszahl
+    guessedIds.push(selectedPlayer.id);
+    const attemptNumber = guessedIds.length;
+
+    // Ziel-Spieler finden (unterstützt verschiedene Namensräume)
+    const currentTarget = (typeof targetPlayer !== 'undefined') ? targetPlayer : window.targetPlayer || null;
+    const isCorrect = currentTarget && selectedPlayer.id === currentTarget.id;
+
+    // vorhandene Funktionen verwenden, falls implementiert
+    try { addGuessRow(selectedPlayer, currentTarget); } catch (err) { console.warn('addGuessRow fehlgeschlagen:', err); }
+    try { if (typeof updateCircle === 'function') updateCircle(isCorrect); } catch (err) {}
+
+    // Input zurücksetzen / Fokus entfernen
+    if (searchInput) searchInput.value = '';
+    selectedPlayer = null;
+    guessButton.blur();
+
+    // Ergebnisbehandlung
+    const targetName = currentTarget ? (currentTarget.name || currentTarget.player || 'der Spieler') : 'der Spieler';
+
+    if (isCorrect) {
+        // Win: zeige Winning-Screen und deaktiviere weiteres Raten
+        disableGuessing();
+        showResultCard(true, attemptNumber, targetName);
+        return;
+    }
+
+    if (attemptNumber >= 10) {
+        // Lost: zeige Losing-Screen und deaktiviere weiteres Raten
+        disableGuessing();
+        showResultCard(false, attemptNumber, targetName);
+        return;
+    }
+});
+
