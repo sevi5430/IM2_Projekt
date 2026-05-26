@@ -133,3 +133,25 @@ document.addEventListener('click', function(event) {
         hideDropdown();
     }
 });
+
+// Modal-Elemente
+const instructionButton = document.querySelector('.instruction-button');
+const instructionModal = document.getElementById('instructionModal');
+const closeModal = document.getElementById('closeModal');
+
+// Modal öffnen
+instructionButton.addEventListener('click', function() {
+    instructionModal.classList.add('active');
+});
+
+// Modal schließen (Close-Button)
+closeModal.addEventListener('click', function() {
+    instructionModal.classList.remove('active');
+});
+
+// Modal schließen (Klick außerhalb)
+instructionModal.addEventListener('click', function(event) {
+    if (event.target === instructionModal) {
+        instructionModal.classList.remove('active');
+    }
+});

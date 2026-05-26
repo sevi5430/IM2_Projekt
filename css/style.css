@@ -17,11 +17,50 @@ nav {
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
     padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
 }
 
 nav img {
     height: 90px;
+}
+
+/* Anleitung-Button oben rechts */
+.instruction-button {
+    position: fixed;
+    top: 25px;
+    right: 20px;
+    border: 2px solid #00FF85;
+    border-radius: 15px;
+    padding: 10px 17px;
+    background-color: rgba(0, 255, 133, 0.23);
+    color: #00FF85;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+    z-index: 1001;
+}
+
+.instruction-button:hover {
+    background-color: #00FF85;
+    color: #08120b;
+    box-shadow: 0 0 0 4px #16032E;
+}
+
+.instruction-button:focus {
+    outline: none;
+}
+
+.instruction-button:active {
+    background-color: rgba(0, 255, 133, 0.23);
+    color: #00FF85;
+    box-shadow: none;
 }
 
 /* zentriert alle Inhalte im Header untereinander */
@@ -188,8 +227,30 @@ h1 {
     font-weight: 600;
     font-size: 20px;
     cursor: pointer;
+    transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
 }
 
+/* nur beim Hover */
+.search-button:hover {
+    background-color: #00FF85;
+    color: #08120b;
+    box-shadow: 0 0 0 4px #16032E;
+}
+
+/* Focus sofort nach dem Click entfernen */
+.search-button:focus {
+    outline: none;
+}
+
+/* Icon-Farbwechsel beim Hover */
+.search-button .search-icon-polygon {
+    transition: fill 150ms ease, stroke 150ms ease;
+}
+
+.search-button:hover .search-icon-polygon {
+    fill: #08120b;
+    stroke: #08120b;
+}
 /* Tabelle gleich breit wie die Searchbar, zentriert */
 .guess-table {
     width: 60%;
@@ -278,6 +339,7 @@ h1 {
     font-size: 20px;
     display: inline-block;
 }
+
 
 
 
