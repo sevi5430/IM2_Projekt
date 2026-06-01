@@ -357,10 +357,10 @@ h1 {
 
 /* Modal-Inhalt */
 .modal-content {
-    background-color: rgba(24, 14, 53, 0.95);
+    background-color: #4B3C83;
     border: 2px solid #00FF85;
-    border-radius: 12px;
-    padding: 32px;
+    border-radius: 20px;
+    padding: 40px;
     max-width: 900px;
     width: 90%;
     max-height: 80vh;
@@ -369,16 +369,49 @@ h1 {
     position: relative;
 }
 
+/* Haupttitel "Anleitung" */
+.modal-content h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    margin: 0 0 32px 0;
+    color: #00FF85;
+}
+
+/* Untertitel "Spieler erraten:" und "Beispiel:" */
+.modal-content h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    margin: 24px 0 12px 0;
+    color: #00FF85;
+}
+
+/* Fliesstext / Absätze */
+.modal-content p {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+    color: #00FF85;
+}
+
 /* Close-Button */
 .modal-close {
     position: absolute;
-    top: 14px;
-    right: 14px;
+    top: 20px;
+    right: 20px;
     background: none;
     border: none;
     color: #00FF85;
-    font-size: 32px;
+    font-size: 40px;
     cursor: pointer;
+    transition: color 150ms ease;
+}
+
+.modal-close:hover {
+    color: #00FF85;
 }
 
 .modal-close:focus {
