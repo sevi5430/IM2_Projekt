@@ -174,3 +174,81 @@ if (instructionModal) {
         }
     });
 }
+
+//WIN & LOSE Result Card
+
+guessButton.addEventListener('click', function handleGuessClick(e) {
+    if (!selectedPlayer) return;
+    if (guessedIds.includes(selectedPlayer.id)) return;
+    if (!Array.isArray(guessedIds)) guessedIds = [];
+
+    guessedIds.push(selectedPlayer.id);
+    const attemptNumber = guessedIds.length;
+
+    const currentTarget = (typeof targetPlayer !== 'undefined') ? targetPlayer : window.targetPlayer || null;
+    const isCorrect = currentTarget && selectedPlayer.id === currentTarget.id;
+
+    try { addGuessRow(selectedPlayer, currentTarget); } catch (err) { console.warn('addGuessRow:', err); }
+    try { if (typeof updateCircle === 'function') updateCircle(isCorrect); } catch (err) {}
+
+    if (searchInput) searchInput.value = '';
+    selectedPlayer = null;
+    guessButton.blur();
+
+    const targetName = currentTarget ? (currentTarget.name || currentTarget.player || 'der Spieler') : 'der Spieler';
+
+    // WIN: Zeige Winning-Screen
+    if (isCorrect) {
+        disableGuessing();
+        showResultCard(true, attemptNumber, targetName);
+        return;
+    }
+
+    // LOSE: Nach 10 Versuchen
+    if (attemptNumber >= 10) {
+        disableGuessing();
+        showResultCard(false, attemptNumber, targetName);
+        return;
+    }
+});
+
+function disableGuessing() {
+    if (guessButton) guessButton.disabled = true;
+    if (searchInput) {
+        searchInput.disabled = true;
+        searchInput.classList.add('disabled');
+    }
+    if (searchDropdown) searchDropdown.style.display = 'none';
+}
+
+function showResultCard(win, attempts, targetName) {
+    const existing = document.querySelector('.result-card');
+    if (existing) existing.remove();
+
+    const card = document.createElement('div');
+    card.className = 'result-card ' + (win ? 'win' : 'lose');
+    card.innerHTML = `
+      <div class="result-inner">
+        <h2>${win ? 'Bravo!' : 'Schade!'}</h2>
+        <p>${win
+          ? `Du hast ${targetName} im ${attempts}. Versuch erraten.`
+          : `Du hast ${targetName} in ${attempts} Versuchen leider nicht erraten.`}</p>
+        <button class="result-restart">${win ? 'Neuen Spieler erraten' : 'Neuen Spieler erraten'}</button>
+      </div>
+    `;
+
+    const guessTable = document.querySelector('.guess-table');
+    const guessRowsContainer = guessTable ? guessTable.querySelector('.guess-rows') : document.querySelector('.guess-rows');
+
+    if (guessTable && guessRowsContainer) {
+        guessTable.insertBefore(card, guessRowsContainer);
+    } else {
+        const fallbackParent = guessRowsContainer ? guessRowsContainer.parentElement : (document.querySelector('main') || document.body);
+        fallbackParent.insertBefore(card, guessRowsContainer || fallbackParent.firstChild);
+    }
+
+    const rb = card.querySelector('.result-restart');
+    rb.addEventListener('click', () => location.reload());
+}
+
+// ...existing code...
