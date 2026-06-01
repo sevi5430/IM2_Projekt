@@ -276,10 +276,10 @@ h1 {
     font-size: 14px;
 }
 
-/* Container für alle Guess-Zeilen */
+/* Container für alle Guess-Zeilen - column-reverse damit neueste Zeile oben erscheint */
 .guess-rows {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 10px;
 }
 

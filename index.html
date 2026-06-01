@@ -34,7 +34,9 @@
     <main>
       <!-- Versuche-Anzeige mit Titel und 10 Kreisen -->
       <div class="attempts-container">
-        <span class="attempts-title">Versuche</span>
+        <span class="attempts-title"
+          >Versuche <span id="attempts-count">0/10</span></span
+        >
         <div class="attempts-circles">
           <div class="attempt-circle"></div>
           <div class="attempt-circle"></div>
@@ -88,22 +90,34 @@
         <!-- Guess-Zeilen werden per JS hier eingefügt -->
         <div class="guess-rows"></div>
       </div>
-      
     </main>
 
-        <!-- Modal für Anleitung -->
+    <!-- Modal für Anleitung -->
     <div class="modal" id="instructionModal">
       <div class="modal-content">
         <button class="modal-close" id="closeModal">&times;</button>
         <h2>Anleitung</h2>
-        
+
         <h3>Spieler erraten:</h3>
-        <p>Ziel des Spiels ist es, innerhalb von acht Versuchen den gesuchten Spieler zu erraten. Als Hilfestellung wird dir nach jedem deiner Rateversuche in sieben Kategorien angezeigt, wie nah du am Spieler bist. Die Kategorien sind Nationalität, Verein, Position und Alter.</p>
-        
+        <p>
+          Ziel des Spiels ist es, innerhalb von acht Versuchen den gesuchten
+          Spieler zu erraten. Als Hilfestellung wird dir nach jedem deiner
+          Rateversuche in sieben Kategorien angezeigt, wie nah du am Spieler
+          bist. Die Kategorien sind Nationalität, Verein, Position und Alter.
+        </p>
+
         <h3>Beispiel:</h3>
-        <p>Du tippst auf Seve Trösch. Die Nationalität leuchtet rot – der gesuchte Spieler kommt also aus einem anderen Land. Die Position leuchtet grün – beide Spieler teilen dieselbe Position. Der Verein leuchtet rot – der gesuchte Spieler spielt nicht bei den Wolves. Das Alter leuchtet rot – der Spieler ist anders alt als Seve Trösch.</p>
-        
-        <p>Mit diesen Infos kannst du deinen nächsten Tipp gezielt einschränken.</p>
+        <p>
+          Du tippst auf Seve Trösch. Die Nationalität leuchtet rot – der
+          gesuchte Spieler kommt also aus einem anderen Land. Die Position
+          leuchtet grün – beide Spieler teilen dieselbe Position. Der Verein
+          leuchtet rot – der gesuchte Spieler spielt nicht bei den Wolves. Das
+          Alter leuchtet rot – der Spieler ist anders alt als Seve Trösch.
+        </p>
+
+        <p>
+          Mit diesen Infos kannst du deinen nächsten Tipp gezielt einschränken.
+        </p>
       </div>
     </div>
 
