@@ -114,31 +114,6 @@ searchInput.addEventListener('input', function(event) {
     }
 });
 
-// Guess-Button: vergleicht den ausgewählten Spieler mit dem Ziel-Spieler
-guessButton.addEventListener('click', function() {
-    if (!selectedPlayer) return;
-    if (guessedIds.includes(selectedPlayer.id)) return;
-
-    const isCorrect = selectedPlayer.id === targetPlayer.id;
-
-    guessedIds.push(selectedPlayer.id);
-    addGuessRow(selectedPlayer, targetPlayer);
-    updateCircle(isCorrect);
-    // Zähler aktualisieren z.B. 1/10, 2/10 etc.
-    document.querySelector('#attempts-count').innerText = `${guessedIds.length}/10`;
-
-    searchInput.value = '';
-    selectedPlayer = null;
-
-    if (isCorrect) {
-        console.log('Gewonnen! Der Spieler war:', targetPlayer.name);
-        disableGuessing();
-    } else if (guessedIds.length >= 10) {
-        console.log('Verloren! Der Spieler war:', targetPlayer.name);
-        disableGuessing();
-    }
-});
-
 // Schliesst das Dropdown wenn ausserhalb geklickt wird
 document.addEventListener('click', function(event) {
     if (!searchInput.contains(event.target)) {
@@ -185,11 +160,16 @@ guessButton.addEventListener('click', function handleGuessClick(e) {
     try { addGuessRow(selectedPlayer, currentTarget); } catch (err) { console.warn('addGuessRow:', err); }
     try { if (typeof updateCircle === 'function') updateCircle(isCorrect); } catch (err) {}
 
+    // Zähler aktualisieren z.B. 1/10, 2/10 etc.
+    const attemptsCounter = document.querySelector('#attempts-count');
+    if (attemptsCounter) attemptsCounter.innerText = `${attemptNumber}/10`;
+
     if (searchInput) searchInput.value = '';
     selectedPlayer = null;
     guessButton.blur();
 
     const targetName = currentTarget ? (currentTarget.name || currentTarget.player || 'der Spieler') : 'der Spieler';
+
 
     // WIN: Zeige Winning-Screen
     if (isCorrect) {
