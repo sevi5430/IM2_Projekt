@@ -88,12 +88,6 @@ function updateCircle(isCorrect) {
     }
 }
 
-// Deaktiviert das Suchfeld nach Spielende
-function disableGuessing() {
-    guessButton.disabled = true;
-    searchInput.disabled = true;
-}
-
 // Alle Spieler laden und einen zufälligen Ziel-Spieler auswählen
 const allPlayers = await loadPlayers();
 const randomIndex = Math.floor(Math.random() * allPlayers.length);
@@ -250,5 +244,3 @@ function showResultCard(win, attempts, targetName) {
     const rb = card.querySelector('.result-restart');
     rb.addEventListener('click', () => location.reload());
 }
-
-// ...existing code...
