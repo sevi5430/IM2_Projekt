@@ -361,9 +361,8 @@ h1 {
     border: 2px solid #00FF85;
     border-radius: 20px;
     padding: 40px;
-    max-width: 900px;
-    width: 90%;
-    max-height: 80vh;
+    width: calc(100% - 200px);
+    max-height: 600px;
     overflow-y: auto;
     color: #00FF85;
     position: relative;
@@ -387,25 +386,27 @@ h1 {
     color: #00FF85;
 }
 
-/* Fliesstext / Absätze */
+/* Fliesstext / Absätze - dünner */
 .modal-content p {
     font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-size: 24px;
+    font-weight: 300;
+    font-size: 18px;
     line-height: 1.6;
     margin: 0 0 16px 0;
     color: #00FF85;
 }
 
-/* Close-Button */
+/* Close-Button - grösser, dünner */
 .modal-close {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 16px;
+    right: 16px;
     background: none;
     border: none;
     color: #00FF85;
-    font-size: 40px;
+    font-size: 48px;
+    font-weight: 300;
+    line-height: 1;
     cursor: pointer;
     transition: color 150ms ease;
 }
@@ -417,7 +418,6 @@ h1 {
 .modal-close:focus {
     outline: none;
 }
-
 /* Ergebnis-Karte (Win / Lose) */
 .result-card {
     width: 100%;
