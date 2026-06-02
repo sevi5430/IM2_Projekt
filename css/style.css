@@ -462,7 +462,7 @@ h1 {
 /* Trophy Animation Container */
 .result-trophy {
     position: absolute;
-    top: 20px;
+    top: -20px;
     right: 30px;
     width: 200px; 
     height: 200px;
@@ -502,14 +502,14 @@ h1 {
     transition: all 150ms ease;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
 }
 
 /* Hover: grün wie Guess & Instruction Button */
 .result-restart:hover {
-    background-color: rgba(0, 255, 133, 1);
-    border-color: #38003C;
-    color: #38003C;
+    background-color: #00FF85;
+    color: #08120b;
+    box-shadow: 0 0 0 4px #16032E;
 }
 
 .result-restart:focus {
@@ -520,9 +520,9 @@ h1 {
 .result-restart::after {
     content: url('../images/playbutton.svg');
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    filter: brightness(0) saturate(100%) invert(16%) invert(1%) invert(24%);
+    width: 10px;
+    height: 18px;
+    margin-bottom: 2px;
 }
 
 /* Mobile / kleinere Breiten */
@@ -532,4 +532,9 @@ h1 {
     .result-card.win p { font-size: 14px; }
     .result-trophy { width: 100px; height: 100px; }
     .result-restart { padding: 8px 14px; }
+}
+
+footer {
+    height: 100px;
+    width: 100%;
 }
