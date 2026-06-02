@@ -501,16 +501,18 @@ h1 {
     background-color: transparent;
 }
 
-.result-card.lose .result-restart:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    color: #ffffff;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+.result-card.lose .result-restart::after {
+    filter: brightness(0) invert(1);
 }
 
-/* SVG-Icon-Farbe für Lose-Card */
-.result-card.lose .result-restart .search-icon-polygon {
-    fill: #ffffff;
-    stroke: #ffffff;
+.result-card.lose .result-restart:hover {
+    background-color: rgba(0, 255, 133, 0.23);
+    color: #ffffff;
+    box-shadow: 0 0 0 2px #16032E;
+}
+
+.result-card.lose .result-restart:hover::after {
+    filter: brightness(0) saturate(2) invert(0);
 }
 
 
@@ -550,7 +552,8 @@ h1 {
     display: inline-block;
     width: 10px;
     height: 10px;
-    vertical-align: middle;
+    position: relative;
+    top: -2px;
     margin-left: 8px;
 }
 
