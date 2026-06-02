@@ -424,6 +424,7 @@ h1 {
     width: 100%;
     border-radius: 14px;
     padding: 24px;
+    padding-right: 230px;  /* ← PLATZ für Trophy, damit Text nicht überlappt */
     box-sizing: border-box;
     margin: 18px 0;
     position: relative;
@@ -462,10 +463,11 @@ h1 {
 /* Trophy Animation Container */
 .result-trophy {
     position: absolute;
-    top: -20px;
+    top: -10px;
     right: 30px;
     width: 200px; 
     height: 200px;
+    pointer-events: none;
 }
 
 /* Lose: roter Verlauf */
@@ -509,7 +511,7 @@ h1 {
 .result-restart:hover {
     background-color: #00FF85;
     color: #08120b;
-    box-shadow: 0 0 0 4px #16032E;
+    box-shadow: 0 0 0 2px #16032E;
 }
 
 .result-restart:focus {
@@ -519,10 +521,13 @@ h1 {
 /* Play-Icon (SVG) im Button */
 .result-restart::after {
     content: url('../images/playbutton.svg');
-    display: inline-block;
-    width: 10px;
-    height: 18px;
-    margin-bottom: 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 12px;
+    margin-bottom: 0px;
+    vertical-align: middle;
 }
 
 /* Mobile / kleinere Breiten */
