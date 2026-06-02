@@ -221,6 +221,21 @@ function showResultCard(win, attempts, targetName) {
         fallbackParent.insertBefore(card, guessRowsContainer || fallbackParent.firstChild);
     }
 
+    // Lottie Animation laden (nur bei Win)
+    if (win) {
+        const trophyContainer = card.querySelector('.result-trophy');
+        if (trophyContainer && window.lottie) {
+            const trophyAnimation = { /* Animation JSON hier */ };
+            window.lottie.loadAnimation({
+                container: trophyContainer,
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                animationData: trophyAnimation
+            });
+        }
+    }
+
     const rb = card.querySelector('.result-restart');
     rb.addEventListener('click', () => location.reload());
 }
