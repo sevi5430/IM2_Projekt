@@ -450,12 +450,12 @@ h1 {
 }
 
 .result-card.win h2 {
-    font-size: 32px;
+    font-size: 36px;
     margin: 0;
 }
 
 .result-card.win p {
-    font-size: 20px;
+    font-size: 24px;
     margin: 0;
 }
 
@@ -464,8 +464,8 @@ h1 {
     position: absolute;
     top: 20px;
     right: 30px;
-    width: 140px;
-    height: 140px;
+    width: 200px; 
+    height: 200px;
 }
 
 /* Lose: roter Verlauf */
@@ -500,11 +500,14 @@ h1 {
     font-size: 16px;
     cursor: pointer;
     transition: all 150ms ease;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 /* Hover: grün wie Guess & Instruction Button */
 .result-restart:hover {
-    background-color: rgba(0, 255, 133, 0.23);
+    background-color: rgba(0, 255, 133, 1);
     border-color: #38003C;
     color: #38003C;
 }
@@ -513,12 +516,13 @@ h1 {
     outline: none;
 }
 
-/* Play-Icon (Dreieck) im Button - abrundete Ecken */
+/* Play-Icon (SVG) im Button */
 .result-restart::after {
-    content: '▶';
-    font-size: 14px;
-    color: inherit;
+    content: url('../images/playbutton.svg');
     display: inline-block;
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) saturate(100%) invert(16%) invert(1%) invert(24%);
 }
 
 /* Mobile / kleinere Breiten */
