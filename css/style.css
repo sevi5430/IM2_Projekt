@@ -472,21 +472,47 @@ h1 {
 
 /* Lose: roter Verlauf */
 .result-card.lose {
-    background: linear-gradient(135deg, #FF6464 0%, #E03A2D 50%, #C71A00 100%);
-    color: #fff;
+    background: linear-gradient(90deg, #FF0004 0%, #E55658 20%, #FF0004 75%, #E34144 100%);
     border: 2px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
+.result-card.lose h2,
+.result-card.lose p {
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+}
+
 .result-card.lose h2 {
-    font-size: 32px;
+    font-size: 36px;
     margin: 0;
 }
 
 .result-card.lose p {
-    font-size: 16px;
+    font-size: 24px;
     margin: 0;
 }
+
+/* Button-Styling speziell für Lose-Card */
+.result-card.lose .result-restart {
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    background-color: transparent;
+}
+
+.result-card.lose .result-restart:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* SVG-Icon-Farbe für Lose-Card */
+.result-card.lose .result-restart .search-icon-polygon {
+    fill: #ffffff;
+    stroke: #ffffff;
+}
+
 
 /* Restart-Button */
 .result-restart {
@@ -521,13 +547,11 @@ h1 {
 /* Play-Icon (SVG) im Button */
 .result-restart::after {
     content: url('../images/playbutton.svg');
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 12px;
-    height: 12px;
-    margin-bottom: 0px;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
     vertical-align: middle;
+    margin-left: 8px;
 }
 
 /* Mobile / kleinere Breiten */
