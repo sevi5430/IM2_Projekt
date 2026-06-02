@@ -455,7 +455,7 @@ h1 {
 }
 
 .result-card.win p {
-    font-size: 16px;
+    font-size: 20px;
     margin: 0;
 }
 
@@ -489,37 +489,39 @@ h1 {
 /* Restart-Button */
 .result-restart {
     align-self: flex-start;
-    margin-top: 8px;
+    margin-top: 12px;
     border: 2px solid #38003C;
-    border-radius: 12px;
-    padding: 10px 18px;
+    border-radius: 8px;
+    padding: 14px 24px;
     background-color: rgba(0, 255, 133, 0.23);
     color: #38003C;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+    transition: background-color 150ms ease, color 150ms ease;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
-/* Hover: dunkler Hintergrund + heller Text */
+/* Hover: grün wie Guess & Instruction Button */
 .result-restart:hover {
-    background-color: #38003C;
-    color: #FFF587;
-    box-shadow: 0 0 0 2px rgba(56, 0, 60, 0.3);
+    background-color: rgba(0, 255, 133, 0.23);
+    color: #38003C;
+    border-color: #38003C;
 }
 
 .result-restart:focus {
     outline: none;
 }
 
-/* Play-Icon (Dreieck) im Button */
+/* Play-Icon (Dreieck) im Button - abrundete Ecken */
 .result-restart::after {
     content: '▶';
-    font-size: 12px;
+    font-size: 14px;
     color: inherit;
+    display: inline-block;
 }
 
 /* Mobile / kleinere Breiten */
