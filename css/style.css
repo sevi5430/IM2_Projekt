@@ -508,11 +508,11 @@ h1 {
 .result-card.lose .result-restart:hover {
     background-color: rgba(0, 255, 133, 0.23);
     color: #ffffff;
-    box-shadow: 0 0 0 2px #16032E;
+    box-shadow: none;
 }
 
 .result-card.lose .result-restart:hover::after {
-    filter: brightness(0) saturate(2) invert(0);
+    filter: none;
 }
 
 
@@ -553,9 +553,17 @@ h1 {
     width: 10px;
     height: 10px;
     position: relative;
-    top: -2px;
+    top: -20px;
     margin-left: 8px;
+    vertical-align: middle;
 }
+
+/* Spezifische Position für Lose-Card Icon */
+.result-card.lose .result-restart::after {
+    top: 0px;
+}
+
+
 
 /* Mobile / kleinere Breiten */
 @media (max-width: 700px) {
