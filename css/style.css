@@ -71,6 +71,11 @@ header {
     padding-top: 105px;
 }
 
+/* Zeilenumbruch im Titel nur auf Desktop verstecken */
+.mobile-break {
+    display: none;
+}
+
 /* gestaltet den Haupttitel in Inter Semi Bold, 100px gross und grün */
 h1 {
     font-family: 'Inter', sans-serif;
@@ -121,7 +126,7 @@ h1 {
 
 /* Einzelner Kreis - neutral */
 .attempt-circle {
-    width: 42px;
+    width: 42px;s
     height: 42px;
     border-radius: 50%;
     border: 2px solid rgba(255, 255, 255, 0.18);
@@ -376,8 +381,8 @@ h1 {
 .modal-content h2 {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    font-size: 48px;
-    margin: 0 0 32px 0;
+    font-size: 32px;
+    margin: 0 0 20px 0;
     color: #00FF85;
 }
 
@@ -385,8 +390,8 @@ h1 {
 .modal-content h3 {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    font-size: 30px;
-    margin: 24px 0 12px 0;
+    font-size: 20px;
+    margin: 16px 0 8px 0;
     color: #00FF85;
 }
 
@@ -394,9 +399,9 @@ h1 {
 .modal-content p {
     font-family: 'Inter', sans-serif;
     font-weight: 300;
-    font-size: 20px;
+    font-size: 14px;
     line-height: 1.6;
-    margin: 0 0 16px 0;
+    margin: 0 0 12px 0;
     color: #00FF85;
 }
 
@@ -455,13 +460,14 @@ h1 {
 }
 
 .result-card.win h2 {
-    font-size: 36px;
+    font-size: 28px;
     margin: 0;
 }
 
 .result-card.win p {
-    font-size: 24px;
+    font-size: 16px;
     margin: 0;
+    margin-top: 30px;
 }
 
 /* Trophy Animation Container */
@@ -489,13 +495,14 @@ h1 {
 }
 
 .result-card.lose h2 {
-    font-size: 36px;
+    font-size: 28px;
     margin: 0;
 }
 
 .result-card.lose p {
-    font-size: 24px;
+    font-size: 16px;
     margin: 0;
+    margin-top: 12px;
 }
 
 /* Button-Styling speziell für Lose-Card */
@@ -522,12 +529,12 @@ h1 {
     margin-top: 12px;
     border: 2px solid #38003C;
     border-radius: 8px;
-    padding: 14px 24px;
+    padding: 10px 18px;
     background-color: rgba(0, 255, 133, 0.23);
     color: #38003C;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     transition: all 150ms ease;
     display: flex;
@@ -546,21 +553,13 @@ h1 {
     outline: none;
 }
 
-/* Play-Icon (SVG) im Button */
+/* Play-Icon (SVG) im Button - zentriert und kleiner */
 .result-restart::after {
     content: url('../images/playbutton.svg');
     display: inline-block;
-    width: 10px;
-    height: 10px;
-    position: relative;
-    top: -6px;
-    margin-left: 8px;
-    vertical-align: middle;
-}
-
-/* Spezifische Position für Lose-Card Icon */
-.result-card.lose .result-restart::after {
-    top: 0px;
+    transform: scale(0.6);
+    transform-origin: center center;
+    line-height: 0;
 }
 
 
@@ -572,6 +571,119 @@ h1 {
     .result-card.win p { font-size: 14px; }
     .result-trophy { width: 100px; height: 100px; }
     .result-restart { padding: 8px 14px; }
+}
+
+/* Mobile Version ab 400px */
+@media (max-width: 400px) {
+
+    /* Navbar: oben solid, unten auslaufend - keine sichtbare Kante */
+    nav {
+        background: linear-gradient(to bottom, #D000FF 65%, transparent);
+    }
+
+    /* Titel auf Mobile - WHO auf erster, AM I? auf zweiter Zeile */
+    h1 {
+        font-size: 80px;
+        text-align: center;
+    }
+
+    /* Zeilenumbruch nach WHO einschalten */
+    .mobile-break {
+        display: block;
+    }
+
+    /* Header mehr Abstand oben */
+    header {
+        padding-top: 120px;
+    }
+
+    /* Boxen Premiere League / Saison kleiner */
+    .round-box {
+        font-size: 14px;
+        padding: 7px 12px;
+    }
+
+    /* Versuch-Zähler und Kreise volle Breite */
+    .attempts-container {
+        width: 95%;
+        padding: 0 10px;
+        margin-top: 20px;
+    }
+
+    /* Kreise etwas kleiner damit alle 10 in einer Zeile passen */
+    .attempt-circle {
+        width: 26px;
+        height: 26px;
+    }
+
+    /* Abstand zwischen Kreisen kleiner */
+    .attempts-circles {
+        gap: 6px;
+        padding: 7px 12px;
+    }
+
+    /* Suchleiste volle Breite */
+    .search-container {
+        width: 95%;
+        padding: 15px 10px;
+        gap: 8px;
+    }
+
+    /* Guess-Button kompakter */
+    .search-button {
+        padding: 15px 14px;
+        font-size: 16px;
+        white-space: nowrap;
+    }
+
+    /* Eingabefeld Schrift kleiner */
+    .search-input {
+        font-size: 16px;
+        padding: 15px 16px;
+    }
+
+    /* Tabelle volle Breite */
+    .guess-table {
+        width: 95%;
+        padding: 0 10px;
+    }
+
+    /* Kopfzeile: Spieler breiter, Nation bis Liga alle gleich */
+    .guess-header {
+        grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr 1fr;
+        font-size: 10px;
+        padding: 12px 10px;
+    }
+
+    /* Zeilen: Spieler breiter, Nation bis Liga alle gleich */
+    .guess-row {
+        grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr 1fr;
+        padding: 12px 10px;
+        gap: 5px;
+    }
+
+    /* Spielername kleiner */
+    .guess-player-name {
+        font-size: 13px;
+    }
+
+    /* Badges kleiner */
+    .guess-badge {
+        font-size: 10px;
+        padding: 5px 5px;
+        border-radius: 8px;
+    }
+
+    /* Modal volle Breite */
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    /* Result-Card volle Breite */
+    .result-card {
+        padding: 14px;
+    }
 }
 
 footer {
