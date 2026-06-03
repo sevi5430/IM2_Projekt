@@ -105,20 +105,24 @@ h1 {
     color: #00FF85;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 17px;
     margin-bottom: 8px;
 }
 
-/* Reihe mit den 10 Kreisen */
+/* Reihe mit den 10 Kreisen - Hintergrund wie die Spielerkategorien aber etwas heller */
 .attempts-circles {
     display: flex;
     gap: 10px;
+    padding: 8px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.28);
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.15);
 }
 
 /* Einzelner Kreis - neutral */
 .attempt-circle {
-    width: 22px;
-    height: 22px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     border: 2px solid rgba(255, 255, 255, 0.18);
     background-color: rgba(0, 0, 0, 0.22);
