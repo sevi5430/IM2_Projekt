@@ -126,11 +126,12 @@ h1 {
 
 /* Einzelner Kreis - neutral */
 .attempt-circle {
-    width: 42px;s
+    width: 42px;
     height: 42px;
     border-radius: 50%;
     border: 2px solid rgba(255, 255, 255, 0.18);
     background-color: rgba(0, 0, 0, 0.22);
+    flex-shrink: 0;
 }
 
 /* Kreis grün - richtiger Spieler erraten */
