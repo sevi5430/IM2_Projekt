@@ -7,6 +7,15 @@ const instructionButton = document.querySelector('.instruction-button');
 const instructionModal = document.getElementById('instructionModal');
 const closeModal = document.getElementById('closeModal');
 
+// Logo für Restart klickbar machen
+const logoImg = document.querySelector('nav img');
+if (logoImg) {
+    logoImg.style.cursor = 'pointer';
+    logoImg.addEventListener('click', function() {
+        location.reload();
+    });
+}
+
 // Speichert den aktuell ausgewählten Spieler aus dem Dropdown
 let selectedPlayer = null;
 
