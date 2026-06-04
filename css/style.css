@@ -9,7 +9,7 @@
 /* erstell mir ein backgrund für die ganze Webseite ers soll responsive sein also bei egal welcher grösse sich anpassen oben start bei #D000FF und ganz unten #16032E */
 body {
     background: linear-gradient(to bottom, #D000FF, #16032E);
-    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 /* Navigationsbar mit Logo oben links */
