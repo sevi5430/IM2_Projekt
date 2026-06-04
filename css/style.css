@@ -578,6 +578,19 @@ h1 {
 /* Mobile Version ab 400px */
 @media (max-width: 400px) {
 
+        /* Logo kleiner machen */
+    nav img {
+        height: 63px;
+    }
+
+    /* Anleitung-Button kleiner und näher zur Ecke */
+    .instruction-button {
+        padding: 8px 14px;      /* Innerer Abstand verkleinern */
+        font-size: 12px;        /* Schrift kleiner */
+        top: 20px;              /* Oben näher heran */
+        right: 15px;            /* Von rechts näher heran */
+    }
+
     /* Navbar: oben solid, unten auslaufend - keine sichtbare Kante */
     nav {
         background: linear-gradient(to bottom, #D000FF 65%, transparent);
@@ -690,6 +703,6 @@ h1 {
 }
 
 footer {
-    height: 100px;
+    height: 20px;
     width: 100%;
 }
