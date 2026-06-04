@@ -41,6 +41,7 @@ function showDropdown(players) {
         const item = document.createElement('div');
         item.classList.add('dropdown-item');
         item.innerText = `${player.name} – ${player.team}`;
+item.playerData = player;
 
         // Spieler aus Dropdown auswählen
         item.addEventListener('click', function() {
@@ -59,6 +60,13 @@ function showDropdown(players) {
 function hideDropdown() {
     searchDropdown.innerHTML = '';
     searchDropdown.style.display = 'none';
+}
+
+function getFirstDropdownPlayer() {
+    const items = searchDropdown.querySelectorAll('.dropdown-item');
+    if (items.length === 0) return null;
+
+    return items[0].playerData;
 }
 
 // Sucht einen Spieler in der gesamten Spielerliste anhand des Namens
@@ -271,6 +279,15 @@ function showResultCard(win, attempts, targetName) {
  // Enter-Taste soll Guess-Button klicken
 searchInput.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
+
+        // Falls Dropdown offen → nimm ersten Vorschlag
+        const first = getFirstDropdownPlayer();
+
+        if (first) {
+            selectedPlayer = first;
+            searchInput.value = first.name;
+        }
+
         guessButton.click();
     }
 });
