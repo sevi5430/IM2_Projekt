@@ -10,7 +10,6 @@
 body {
     background: linear-gradient(to bottom, #D000FF, #16032E);
     min-height: 100vh;
-    background-attachment: fixed;
 }
 
 /* Navigationsbar mit Logo oben links */
@@ -704,6 +703,6 @@ h1 {
 }
 
 footer {
-    height: 60%;
+    height: 100px;
     width: 100%;
 }
