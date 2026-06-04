@@ -61,6 +61,17 @@ function hideDropdown() {
     searchDropdown.style.display = 'none';
 }
 
+// Sucht einen Spieler in der gesamten Spielerliste anhand des Namens
+function findPlayerByName(name) {
+    // Eingabe wird bereinigt (Leerzeichen entfernen + alles klein schreiben)
+    const normalized = name.trim().toLowerCase();
+
+    // Durchsucht alle Spieler und sucht den ersten, der exakt passt
+    return allPlayers.find(player =>
+        player.name.toLowerCase() === normalized
+    );
+}
+
 // Fügt eine neue Guess-Zeile ein - neueste erscheint oben weil CSS flex-direction: column-reverse gesetzt ist
 function addGuessRow(guessed, target) {
     const nationCorrect = guessed.nationality === target.nationality;
@@ -156,7 +167,10 @@ if (instructionModal) {
 //WIN & LOSE Result Card
 
 guessButton.addEventListener('click', function handleGuessClick(e) {
-    if (!selectedPlayer) return;
+    if (!selectedPlayer) {
+    selectedPlayer = findPlayerByName(searchInput.value);
+}
+if (!selectedPlayer) return;
     if (guessedIds.includes(selectedPlayer.id)) return;
     if (!Array.isArray(guessedIds)) guessedIds = [];
 
@@ -253,3 +267,10 @@ function showResultCard(win, attempts, targetName) {
         rb.addEventListener('click', () => location.reload());
     }
 }
+
+ // Enter-Taste soll Guess-Button klicken
+searchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        guessButton.click();
+    }
+});
