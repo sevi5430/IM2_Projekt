@@ -22,6 +22,12 @@ let selectedPlayer = null;
 // Speichert die IDs der bereits geratenen Spieler
 let guessedIds = [];
 
+// Speichert alle Spieler global (für Zugriff im ganzen Script)
+let allPlayers = [];
+
+// Speichert den aktuell ausgewählten Zielspieler
+let targetPlayer = null;
+
 // Alle Premier League Spieler einmal beim Start laden
 async function loadPlayers() {
     try {
@@ -117,10 +123,21 @@ function updateCircle(isCorrect) {
 }
 
 // Alle Spieler laden und einen zufälligen Ziel-Spieler auswählen
-const allPlayers = await loadPlayers();
-const randomIndex = Math.floor(Math.random() * allPlayers.length);
-const targetPlayer = allPlayers[randomIndex];
-console.log('Ziel-Spieler (nur zum Testen):', targetPlayer.name);
+// Initialisiert das Spiel: lädt Spieler und setzt zufälligen Zielspieler
+async function init() {
+    // API Daten laden und global speichern
+    allPlayers = await loadPlayers();
+
+    // Zufälligen Spieler als Ziel wählen
+    const randomIndex = Math.floor(Math.random() * allPlayers.length);
+    targetPlayer = allPlayers[randomIndex];
+
+    // Nur für Debugging (kann später entfernt werden)
+    console.log('Ziel-Spieler (nur zum Testen):', targetPlayer.name);
+}
+
+// Spiel starten
+init();
 
 // Hört auf Eingaben und filtert die Spielerliste lokal
 searchInput.addEventListener('input', function(event) {
@@ -185,7 +202,7 @@ if (!selectedPlayer) return;
     guessedIds.push(selectedPlayer.id);
     const attemptNumber = guessedIds.length;
 
-    const currentTarget = (typeof targetPlayer !== 'undefined') ? targetPlayer : window.targetPlayer || null;
+    const currentTarget = targetPlayer; window.targetPlayer || null;
     const isCorrect = currentTarget && selectedPlayer.id === currentTarget.id;
 
     try { addGuessRow(selectedPlayer, currentTarget); } catch (err) { console.warn('addGuessRow:', err); }
