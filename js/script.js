@@ -322,23 +322,33 @@ function showResultCard(win, attempts, targetName) {
 searchInput.addEventListener('keydown', function(e) {
     const items = searchDropdown.querySelectorAll('.dropdown-item');
 
-    if (searchDropdown.style.display !== 'block') return;
-
     if (e.key === 'ArrowDown') {
         e.preventDefault();
         selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
         updateDropdownHighlight(items);
+        return;
     }
 
     if (e.key === 'ArrowUp') {
         e.preventDefault();
         selectedIndex = Math.max(selectedIndex - 1, 0);
         updateDropdownHighlight(items);
+        return;
     }
 
     if (e.key === 'Enter') {
-        if (items[selectedIndex]) {
-            items[selectedIndex].click();
+        // FALL 1: Dropdown sichtbar + Auswahl vorhanden
+        if (searchDropdown.style.display === 'block' && items.length > 0) {
+            const index = selectedIndex >= 0 ? selectedIndex : 0;
+            items[index].click();
+            return;
+        }
+
+        // FALL 2: Dropdown zu → normalen Input verwenden
+        selectedPlayer = findPlayerByName(searchInput.value);
+
+        if (selectedPlayer) {
+            guessButton.click();
         }
     }
 });
