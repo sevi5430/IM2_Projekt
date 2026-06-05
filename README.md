@@ -12,7 +12,7 @@ Beispiel: Du tippst auf Erling Haaland. Die Nationalität leuchtet rot – der g
 | --------- | ----------------------------------------- |
 | Nation    | Nationalität des Spielers                 |
 | Verein    | Verein des Spielers in der Saison 2024/25 |
-| Alter     | Lebensalter                               |
+| Alter     | Lebensalter in der Saison 2024/25         |
 | Position  | Torwart, Abwehr, Mittelfeld oder Sturm    |
 | Liga      | Immer Premier League                      |
 
