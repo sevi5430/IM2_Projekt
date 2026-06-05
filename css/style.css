@@ -567,7 +567,21 @@ h1 {
     line-height: 0;
 }
 
+/* Animation guess rows */
+.guess-row {
+    animation: fadeIn 0.25s ease;
+}
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 /* Mobile / kleinere Breiten */
 @media (max-width: 700px) {

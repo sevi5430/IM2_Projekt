@@ -34,9 +34,10 @@ async function loadPlayers() {
         const response = await fetch('https://im2.severinfischer.ch/api/players.php');
         return await response.json();
     } catch (error) {
-        console.error(error);
-        return false;
-    }
+    console.error(error);
+    alert("Spielerdaten konnten nicht geladen werden.");
+    return null;
+}
 }
 
 // Zeigt gefilterte Spieler als klickbare Einträge im Dropdown an
@@ -128,6 +129,11 @@ async function init() {
     // API Daten laden und global speichern
     allPlayers = await loadPlayers();
 
+if (!allPlayers) {
+    console.error("API Fehler: keine Spieler geladen");
+    return;
+}
+
     // Zufälligen Spieler als Ziel wählen
     const randomIndex = Math.floor(Math.random() * allPlayers.length);
     targetPlayer = allPlayers[randomIndex];
@@ -141,6 +147,10 @@ init();
 
 // Hört auf Eingaben und filtert die Spielerliste lokal
 searchInput.addEventListener('input', function(event) {
+    /* Deaktiviert Guess Button wenn kein Input vorhanden ist */
+searchInput.addEventListener('input', function() {
+    guessButton.disabled = searchInput.value.trim().length === 0;
+});
     const value = event.target.value.toLowerCase();
 
     if (value.length < 2) {
@@ -159,9 +169,9 @@ searchInput.addEventListener('input', function(event) {
     }
 });
 
-// Schliesst das Dropdown wenn ausserhalb geklickt wird
+/* Schliesst Dropdown nur wenn ausserhalb von Input UND Dropdown geklickt wird */
 document.addEventListener('click', function(event) {
-    if (!searchInput.contains(event.target)) {
+    if (!searchInput.contains(event.target) && !searchDropdown.contains(event.target)) {
         hideDropdown();
     }
 });
@@ -293,16 +303,17 @@ function showResultCard(win, attempts, targetName) {
     }
 }
 
- // Enter-Taste soll Guess-Button klicken
+/* Enter: nimmt nur ersten Dropdown-Vorschlag wenn Dropdown sichtbar ist */
 searchInput.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
 
-        // Falls Dropdown offen → nimm ersten Vorschlag
-        const first = getFirstDropdownPlayer();
+        if (searchDropdown.style.display === 'block') {
+            const first = getFirstDropdownPlayer();
 
-        if (first) {
-            selectedPlayer = first;
-            searchInput.value = first.name;
+            if (first) {
+                selectedPlayer = first;
+                searchInput.value = first.name;
+            }
         }
 
         guessButton.click();
