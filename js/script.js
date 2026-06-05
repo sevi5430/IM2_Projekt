@@ -22,6 +22,9 @@ let selectedPlayer = null;
 // Speichert die IDs der bereits geratenen Spieler
 let guessedIds = [];
 
+// Index für Dropdown Navigation mit Pfeiltasten
+let selectedIndex = -1;
+
 // Speichert alle Spieler global (für Zugriff im ganzen Script)
 let allPlayers = [];
 
@@ -42,6 +45,7 @@ async function loadPlayers() {
 
 // Zeigt gefilterte Spieler als klickbare Einträge im Dropdown an
 function showDropdown(players) {
+    selectedIndex = -1;
     searchDropdown.innerHTML = '';
 
     players.forEach(function(player) {
@@ -74,6 +78,16 @@ function getFirstDropdownPlayer() {
     if (items.length === 0) return null;
 
     return items[0].playerData;
+}
+
+/* Hebt den aktuell ausgewählten Dropdown-Eintrag visuell hervor */
+function updateDropdownHighlight(items) {
+    items.forEach((item, index) => {
+        item.style.background =
+            index === selectedIndex
+                ? 'rgba(0, 255, 133, 0.25)'
+                : 'transparent';
+    });
 }
 
 // Sucht einen Spieler in der gesamten Spielerliste anhand des Namens
@@ -145,13 +159,14 @@ if (!allPlayers) {
 // Spiel starten
 init();
 
-// Hört auf Eingaben und filtert die Spielerliste lokal
+/* Hört auf Eingaben und filtert die Spielerliste lokal */
 searchInput.addEventListener('input', function(event) {
-    /* Deaktiviert Guess Button wenn kein Input vorhanden ist */
-searchInput.addEventListener('input', function() {
-    guessButton.disabled = searchInput.value.trim().length === 0;
-});
+    selectedIndex = -1;
+
     const value = event.target.value.toLowerCase();
+
+    // Button deaktivieren wenn kein Input vorhanden ist
+    guessButton.disabled = searchInput.value.trim().length === 0;
 
     if (value.length < 2) {
         hideDropdown();
@@ -305,17 +320,25 @@ function showResultCard(win, attempts, targetName) {
 
 /* Enter: nimmt nur ersten Dropdown-Vorschlag wenn Dropdown sichtbar ist */
 searchInput.addEventListener('keydown', function(e) {
+    const items = searchDropdown.querySelectorAll('.dropdown-item');
+
+    if (searchDropdown.style.display !== 'block') return;
+
+    if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+        updateDropdownHighlight(items);
+    }
+
+    if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedIndex = Math.max(selectedIndex - 1, 0);
+        updateDropdownHighlight(items);
+    }
+
     if (e.key === 'Enter') {
-
-        if (searchDropdown.style.display === 'block') {
-            const first = getFirstDropdownPlayer();
-
-            if (first) {
-                selectedPlayer = first;
-                searchInput.value = first.name;
-            }
+        if (items[selectedIndex]) {
+            items[selectedIndex].click();
         }
-
-        guessButton.click();
     }
 });
