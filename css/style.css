@@ -560,7 +560,7 @@ h1 {
 
 /* Play-Icon (SVG) im Button - zentriert und kleiner */
 .result-restart::after {
-    content: url('../images/playbutton.svg');
+    content: url('../assets/playbutton.svg');
     display: inline-block;
     transform: scale(0.6);
     transform-origin: center center;

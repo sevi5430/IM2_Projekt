@@ -227,7 +227,7 @@ if (!selectedPlayer) return;
     guessedIds.push(selectedPlayer.id);
     const attemptNumber = guessedIds.length;
 
-    const currentTarget = targetPlayer; window.targetPlayer || null;
+    const currentTarget = targetPlayer || null;
     const isCorrect = currentTarget && selectedPlayer.id === currentTarget.id;
 
     try { addGuessRow(selectedPlayer, currentTarget); } catch (err) { console.warn('addGuessRow:', err); }
@@ -306,7 +306,7 @@ function showResultCard(win, attempts, targetName) {
                 renderer: 'svg',
                 loop: true,
                 autoplay: true,
-                path: './animations/trophy.json'
+                path: './assets/trophy.json'
             });
         }
     }
